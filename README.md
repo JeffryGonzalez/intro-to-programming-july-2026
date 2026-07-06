@@ -1,5 +1,8 @@
 # Intro to Programming 
 
+[Hypertheory](https://www.hypertheory.com)
+
+
 [Classroom Resources](https://class.hypertheory-labs.com)
 
  [Angular Official Documentation (angular.dev)](https://angular.dev): The definitive home for modern Angular. Tip for your class: Make sure they focus on the Signals, Signal Forms, and Zoneless guides, as Angular 22 cements these as the default architecture.
