@@ -1,5 +1,7 @@
 # The Shows API
 
+Jeff Was Here
+
 We are creating an HTTP (Web) API that allows an application to add a suggested show to watch,
 a way to retrieve that show, and a list of all shows.
 
@@ -39,6 +41,12 @@ POST https://localhost:1337/shows
 Content-Type: application/json 
 
 {
-    "title": "Twin Peaks (the return)"
+    "title": "Shrinking"
 }
+```
+
+## Getting a single show
+
+```http
+GET https://localhost:1337/shows/57674bf7-637c-4ae7-ab31-5a26f2691e1b
 ```

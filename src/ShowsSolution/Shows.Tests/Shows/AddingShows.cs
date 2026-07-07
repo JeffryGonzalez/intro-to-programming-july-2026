@@ -14,10 +14,14 @@ public class AddingShows
     [Fact]
     public async Task CanAddAShowToTheInventory()
     {
+        // a sample of a show that we want to add
         var showToAdd = new { title = "Twin Peaks, the Return" };
+        // Start up the API
         var host = await AlbaHost.For<Program>();
+        // On the API...
         var result = await host.Scenario(api =>
         {
+
             api.Post.Json(showToAdd).ToUrl("/shows");
             api.StatusCodeShouldBe(201);
 
