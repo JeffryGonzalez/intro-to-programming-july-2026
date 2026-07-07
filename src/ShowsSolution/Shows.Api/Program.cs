@@ -18,5 +18,6 @@ var app = builder.Build();
 app.MapGet("/shows", async (ShowsData service, CancellationToken token) => 
     await service.GetAllShowsAsync(token));
 
+app.MapPost("/shows", () => Results.StatusCode(201));
 
-app.Run();
+app.Run(); // not able to receive requests until you are here.
