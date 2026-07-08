@@ -8,6 +8,10 @@ using Shows.Api.Shows;
 using System.ComponentModel.DataAnnotations;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectString = builder.Configuration.GetConnectionString("shows") ?? throw new Exception("Need a Connection String!");
+
+builder.AddServiceDefaults();
 builder.Services.AddValidation();
 
 builder.AddNpgsqlDataSource("shows"); // sets up the connection to the database called "shows", with OTEL.
@@ -33,6 +37,7 @@ var app = builder.Build();
 
 app.MapShow();
 
+app.MapDefaultEndpoints(); // service defaults, things like health checks, etc.
 
 app.Run(); // not able to receive requests until you are here.
 

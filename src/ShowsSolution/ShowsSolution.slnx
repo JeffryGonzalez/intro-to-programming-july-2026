@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="AppHost/AppHost.csproj" Id="10db309d-3590-4ce4-a149-51be11f2716f" />
+  <Project Path="ServiceDefaults/ServiceDefaults.csproj" Id="ff02610a-3052-4440-be37-2320b05ebc43" />
   <Project Path="Shows.Api/Shows.Api.csproj" />
   <Project Path="Shows.Tests/Shows.Tests.csproj" Id="22532a8d-f3dd-4889-ab7c-823fd1cebc8d" />
 </Solution>

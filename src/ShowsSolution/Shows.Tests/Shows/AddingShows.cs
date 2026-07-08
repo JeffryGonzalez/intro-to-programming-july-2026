@@ -1,15 +1,19 @@
 ﻿
 using Alba;
+using Microsoft.AspNetCore.Hosting;
 using Shows.Api.Shows;
+using Testcontainers.PostgreSql;
 
 namespace Shows.Tests.Shows;
 
-public class AddingShows
+public class AddingShows : IAsyncLifetime
 {
     // I want to send an http request to the server to add a show,
     // and if it succeeds, when i get the list of shows, the show I just
     // added is in that list.
-
+    private IAlbaHost host = null!;
+    private PostgreSqlContainer _pgContainer = null!;
+    
 
     [Fact]
     public async Task CanAddAShowToTheInventory()
@@ -17,7 +21,7 @@ public class AddingShows
         // a sample of a show that we want to add
         var showToAdd = new { title = "Twin Peaks, the Return" };
         // Start up the API
-        var host = await AlbaHost.For<Program>();
+       
         // On the API...
         var result = await host.Scenario(api =>
         {
@@ -38,7 +42,37 @@ public class AddingShows
         Assert.NotNull(dataFromGet);
         Assert.True(dataFromGet.Any(), "No Data - bummer");
         // assert that twin peaks is in there
+
+        var hasTwinPeaks = dataFromGet.Any(s => s.Title == "Twin Peaks, the Return");
+
+        Assert.True(hasTwinPeaks);
     }
+
+    public async Task InitializeAsync()
+    {
+        _pgContainer = new PostgreSqlBuilder("postgres:18.3")
+              .Build();
+        await _pgContainer.StartAsync();
+        host = await AlbaHost.For<Program>(config =>
+        {
+            config.UseSetting("ConnectionStrings:shows",
+                _pgContainer.GetConnectionString());
+            config.ConfigureServices(sp =>
+            {
+            // replace the service that calls the reminder service
+            // with a fake version that blows up.
+          
+            });
+            // todo: change the config
+        });
+    }
+    public async Task DisposeAsync()
+    {
+        await host.DisposeAsync();
+        await _pgContainer.DisposeAsync();
+    }
+
+
 
 
     //[Fact]

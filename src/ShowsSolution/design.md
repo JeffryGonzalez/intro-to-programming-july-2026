@@ -41,7 +41,7 @@ POST https://localhost:1337/shows
 Content-Type: application/json 
 
 {
-    "title": "Silo"
+    "title": "Star Trek The Next Generation"
 }
 ```
 
