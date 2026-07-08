@@ -41,12 +41,12 @@ POST https://localhost:1337/shows
 Content-Type: application/json 
 
 {
-    "title": "Shrinking"
+    "title": "Silo"
 }
 ```
 
 ## Getting a single show
 
 ```http
-GET https://localhost:1337/shows/57674bf7-637c-4ae7-ab31-5a26f2691e1b
+GET https://localhost:1337/shows/70a93513-f422-49cb-bcf8-1f6831afac4d
 ```

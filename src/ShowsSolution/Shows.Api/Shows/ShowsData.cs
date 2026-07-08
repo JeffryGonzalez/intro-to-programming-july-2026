@@ -40,8 +40,8 @@ public class ShowsData(IDocumentSession session)
     public async Task<ShowSummary?> GetShowByIdAsync(Guid id)
     {
         return await session.Query<ShowEntity>()
+            .Where(s => s.Id == id)
             .Select(s => new ShowSummary(s.Id, s.Title))
-            
             .FirstAsync(); // 
       
     }
