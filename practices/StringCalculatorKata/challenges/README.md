@@ -28,7 +28,7 @@ Here's a demonstration. Look at this table for a second:
 | Sue  | 289   |
 | Jim  | 12    |
 
-It's bowling scores. Who won? You knew instantly — Sue. Your brain didn't even feel like it did anything.
+Who won? You knew instantly — Sue. Your brain didn't even feel like it did anything.
 
 Now: *write down the exact rule you just used.* Then answer these — what if two people tie
 for the top? Is the answer one name, or a list? What if the list is empty? What if there's
@@ -49,7 +49,8 @@ No mystery here, no hidden agenda: you are all smart, and most of you can alread
 code. The thing many CS and SE programs *don't* practice is the decomposition — taking a
 fuzzy ask apart, finding the edge cases, and knowing which decisions you're allowed to make
 yourself versus which ones you have to go ask about. That last skill is also the antidote to
-the "my team uses Kafka and I'm drowning" feeling: the durable skill was never the tool. It's being able to walk into an unfamiliar problem, break it down, and ask the right questions.
+the "my team uses Kafka and I'm drowning" feeling: the durable skill was never the tool. It's
+being able to walk into an unfamiliar problem, break it down, and ask the right questions.
 Tools you can learn in an afternoon. This you build with reps.
 
 ## How each challenge works
