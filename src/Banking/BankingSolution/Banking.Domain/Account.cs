@@ -1,4 +1,6 @@
-﻿namespace Banking.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Banking.Domain;
 
 public class Account
 {
@@ -18,7 +20,7 @@ public class Account
 
     public void Withdraw(TransactionAmount amountToWithdraw)
     {
-       
+
         if (WouldCauseOverdraft(amountToWithdraw))
         {
             var ex = new OverdraftException
@@ -35,5 +37,51 @@ public class Account
         return amountToWithdraw > _balance;
     }
 
- 
+    public static Account CreateAccount(string firstName, string lastName, char mi)
+    {
+        // firstName can't be null, lastName has to be at least three letter, mi can't be empty, etc.?
+        var errors = new List<string>();
+        if (firstName == "Jeff")
+        {
+            errors.Add("Dumb First Name");
+        }
+        if (lastName == "")
+        {
+            errors.Add("Lastname is blank");
+        }
+        if (errors.HasSome)
+        {
+            var ex = new AccountCreationException
+            {
+                Errors = errors
+            };
+            throw ex;
+        }
+        return new Account();
+    }
+
+
+}
+
+
+public class AccountCreationException : ArgumentOutOfRangeException
+{
+
+    public List<string> Errors { get; internal set; } = [];
+
+}
+
+
+public static class ListExtensions
+{
+    extension(IList<string> strings)
+    {
+        public bool HasSome
+        {
+            get
+            {
+                return strings.Count > 0;
+            }
+        }
+    }
 }

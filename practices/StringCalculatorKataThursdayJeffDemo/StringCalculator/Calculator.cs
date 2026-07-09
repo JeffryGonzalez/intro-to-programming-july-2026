@@ -3,32 +3,35 @@ using System.Text.RegularExpressions;
 
 public partial class Calculator
 {
-    [GeneratedRegex(@"^//(.)\n(.*)$", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"^\/\/(.)\n(.+)$", RegexOptions.Singleline)]
     private static partial Regex CustomDelimetersRegex();
+
+    private static char[] delimeters = [',', '\n'];
+
     public int Add(string numbers)
     {
-        if(numbers == "")
-        {
-            return 0;
-        }
-        var delimeters = new List<char>()
-        {
-            ',',
-            '\n'
-        };
-        var matches = Calculator.CustomDelimetersRegex().Match(numbers);
-        if(matches.Success)
-        {
-            var lhs = matches.Groups[1].Captures[0].Value;
-            var rhs = matches.Groups[2].Captures[0].Value;
-            delimeters.Add(char.Parse(lhs));
-            numbers = rhs;
-            
-        }
-
-        return numbers == "" ? 0 :
-             numbers.Split([.. delimeters])
+        var (matched, nums, delimeter) = MatchAgainstRegex(numbers);
+        char[] fixedDelimeters = matched ? [.. delimeters, delimeter] : delimeters;
+        return nums == "" ? 0 :
+             nums.Split(fixedDelimeters)
              .Sum(int.Parse);
 
+    }
+
+    private static (bool, string, char) MatchAgainstRegex(string nums)
+    {
+        var numbersToParse = nums;
+
+        var matches = CustomDelimetersRegex().Match(numbersToParse);
+        if (matches.Success)
+        {
+            var customDelimeter = matches.Groups[1].Value;
+            var numbersToParseResult = matches.Groups[2].Value;
+            return (true, numbersToParseResult, char.Parse(customDelimeter));
+        }
+        else
+        {
+            return (false, numbersToParse, ' ');
+        }
     }
 }

@@ -62,7 +62,9 @@ public class CalculatorTests
     }
     [Theory]
     [InlineData("//#\n1#2#3", 6)]
-    [InlineData("//#\n1\n2#3", 6)]
+    [InlineData("//#\n1,2#3", 6)]
+    [InlineData("//;\n1;2,5", 8)]
+    [InlineData("//;\n1;2\n5", 8)]
     public void CustomDelimeters(string nums, int expected)
     {
         var answer = calculator.Add(nums);
