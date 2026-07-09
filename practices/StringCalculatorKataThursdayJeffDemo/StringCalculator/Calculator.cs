@@ -1,37 +1,23 @@
-﻿
-using System.Text.RegularExpressions;
+﻿namespace StringCalculator;
 
-public partial class Calculator
+/// <summary>
+/// WARNING: This is a really overly done stupid version of String Calculator. Just showing off some things.
+/// </summary>
+public class Calculator
 {
-    [GeneratedRegex(@"^\/\/(.)\n(.+)$", RegexOptions.Singleline)]
-    private static partial Regex CustomDelimetersRegex();
-
-    private static char[] delimeters = [',', '\n'];
-
-    public int Add(string numbers)
+    private const int Limit = 1000;
+    public int Add(Numbers numbers)
     {
-        var (matched, nums, delimeter) = MatchAgainstRegex(numbers);
-        char[] fixedDelimeters = matched ? [.. delimeters, delimeter] : delimeters;
-        return nums == "" ? 0 :
-             nums.Split(fixedDelimeters)
-             .Sum(int.Parse);
-
-    }
-
-    private static (bool, string, char) MatchAgainstRegex(string nums)
-    {
-        var numbersToParse = nums;
-
-        var matches = CustomDelimetersRegex().Match(numbersToParse);
-        if (matches.Success)
+        var numbersLessThanLimit = numbers.Normalized.Where(n => n <= Limit).ToList();
+        
+        var negativeNumbers = numbersLessThanLimit.Where(n => n < 0).ToList();
+        
+        if (negativeNumbers.Count != 0)
         {
-            var customDelimeter = matches.Groups[1].Value;
-            var numbersToParseResult = matches.Groups[2].Value;
-            return (true, numbersToParseResult, char.Parse(customDelimeter));
+            throw new NoNonNegativeNumbersException(negativeNumbers);
         }
-        else
-        {
-            return (false, numbersToParse, ' ');
-        }
+        var result = numbersLessThanLimit.Sum();
+        // Todo - Part 2
+        return result;
     }
 }
