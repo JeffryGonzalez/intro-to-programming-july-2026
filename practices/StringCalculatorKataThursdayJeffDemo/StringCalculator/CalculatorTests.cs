@@ -60,4 +60,12 @@ public class CalculatorTests
 
         Assert.Equal(expected, answer);
     }
+    [Theory]
+    [InlineData("//#\n1#2#3", 6)]
+    [InlineData("//#\n1\n2#3", 6)]
+    public void CustomDelimeters(string nums, int expected)
+    {
+        var answer = calculator.Add(nums);
+        Assert.Equal(expected, answer);
+    }
 }

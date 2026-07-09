@@ -1,8 +1,4 @@
-﻿using Banking.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Banking.Tests.Accounts;
 
 public class MakingWithdrawals
@@ -18,5 +14,16 @@ public class MakingWithdrawals
         account.Withdraw(amountToWithdraw);
 
         Assert.Equal(openingBalance - amountToWithdraw, account.GetBalance());
+    }
+
+    [Fact]
+    public void CanWithdrawFullBalance()
+    {
+        var account = new Account();
+        var fullBalance = account.GetBalance();
+
+        account.Withdraw(fullBalance);
+
+        Assert.Equal(0.0M, account.GetBalance());
     }
 }

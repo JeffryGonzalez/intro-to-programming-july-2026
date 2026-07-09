@@ -1,5 +1,4 @@
 ﻿
-using Banking.Domain;
 
 namespace Banking.Tests.Accounts;
 
@@ -27,16 +26,7 @@ public class MakingDeposits
     }
 
 
-    //[Fact]
-    //public void CanDepositNegativeValues()
-    //{
-    //    var account = new Account();
-    //    var openingBalance = account.GetBalance();
-
-    //    account.Deposit(-100);
-
-    //    Assert.Equal(4900, account.GetBalance());
-    //}
+   
 
     [Fact(Skip ="Contemplate this")]
     public void DemoDeleteMe()
@@ -50,6 +40,7 @@ public class MakingDeposits
         richardsAccount.Deposit(3000);
 
         Assert.Equal(damiansAccount.GetBalance(), richardsAccount.GetBalance());
+
 
     }
 }

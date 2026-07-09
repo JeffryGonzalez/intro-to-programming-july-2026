@@ -6,18 +6,34 @@ public class Account
 
     public decimal GetBalance()
     {
-        
+
         return _balance; // JFHCI
     }
 
-    public void Deposit(decimal amountToDeposit)
+    // If you give a valid transaction amount, I'll add this to your account.
+    public void Deposit(TransactionAmount amountToDeposit)
     {
-     
         _balance += amountToDeposit;
     }
 
-    public void Withdraw(decimal amountToWithdraw)
+    public void Withdraw(TransactionAmount amountToWithdraw)
     {
+       
+        if (WouldCauseOverdraft(amountToWithdraw))
+        {
+            var ex = new OverdraftException
+            {
+                CurrentBalance = _balance
+            };
+            throw ex;
+        }
         _balance -= amountToWithdraw;
     }
+
+    private bool WouldCauseOverdraft(decimal amountToWithdraw)
+    {
+        return amountToWithdraw > _balance;
+    }
+
+ 
 }
