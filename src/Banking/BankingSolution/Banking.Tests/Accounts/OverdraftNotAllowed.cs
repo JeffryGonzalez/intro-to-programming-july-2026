@@ -1,4 +1,6 @@
-﻿namespace Banking.Tests.Accounts;
+﻿using Banking.Tests.TestDoubles;
+
+namespace Banking.Tests.Accounts;
 
 public class OverdraftNotAllowed
 {
@@ -9,7 +11,7 @@ public class OverdraftNotAllowed
     {
         // even if an exception is thrown, we want to be sure the balance isn't
         // modified.
-        var account = new Account();
+        var account = new Account(new DummyBonusCalculator());
         var openingBalance = account.GetBalance();
         var amountToWithdraw = openingBalance + .01M;
 
@@ -34,7 +36,7 @@ public class OverdraftNotAllowed
     [Fact]
     public void OverdraftExceptionIsThrown()
     {
-        var account = new Account();
+        var account = new Account(new DummyBonusCalculator());
         var openingBalance = account.GetBalance();
         var amountToWithdraw = openingBalance + .01M;
 

@@ -1,6 +1,8 @@
 ﻿
 
 
+using Banking.Tests.TestDoubles;
+
 namespace Banking.Tests.Accounts;
 
 // AccountTests
@@ -11,7 +13,7 @@ public class NewAccounts
     public void HaveTheCorrectBalance()
     {
       // Arange - Given
-        var account = new Account();
+        var account = new Account(new DummyBonusCalculator());
 
         // Act - When
         decimal balance = account.GetBalance();

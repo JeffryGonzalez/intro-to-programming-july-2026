@@ -7,12 +7,16 @@ namespace Shows.Api.Shows;
 // The code that is responsible for the data for shows, and all the process around that.
 // This is a Service!
 
-public class ShowsData(IDocumentSession session)
+public class ShowsData(IDocumentSession session) : IProvideShowsData
 {
     // TLDR on Async/Await: If you are going across a network, filesystem, other apis, databases, etc.
     // You must use async/await
     public async Task<IReadOnlyList<ShowSummary>> GetAllShowsAsync(CancellationToken token = default)
     {
+
+        // no code in here to create a new connection to postgres, or to close it, or 
+        // any of that. This doesn't even know its using postgres.
+
         // Language Integrated Query (LINQ) - "Homoiconicity" in a OOP Language? Yep.
         var results = await session.Query<ShowEntity>()
             .OrderBy(s => s.Added)
@@ -34,7 +38,7 @@ public class ShowsData(IDocumentSession session)
         session.Store(entity);
         await session.SaveChangesAsync(); // do the work.
         return new ShowSummary(entity.Id, entity.Title);
-        
+
     }
 
     public async Task<ShowSummary?> GetShowByIdAsync(Guid id)
@@ -43,7 +47,7 @@ public class ShowsData(IDocumentSession session)
             .Where(s => s.Id == id)
             .Select(s => new ShowSummary(s.Id, s.Title))
             .FirstAsync(); // 
-      
+
     }
 }
 

@@ -2,9 +2,19 @@
 
 namespace Banking.Domain;
 
-public class Account
+// "Flags" 
+public enum AccountTypes {  Standard, Gold }
+public class Account(IProvideBonusCalculationForAccounts _bonusCalculator)
 {
     private decimal _balance = 5000M; // Fields - variables at class level (private by default)
+
+    // Interfaces model functionality abstractly, classes provide implementation of one or more
+    // interfaces. Interfaces describe a set of operations a type "can do"
+    //private IProvideBonusCalculationForAccounts _bonusCalculator;
+    //public Account(IProvideBonusCalculationForAccounts bonusCalculator)
+    //{
+    //    _bonusCalculator = bonusCalculator;
+    //}
 
     public decimal GetBalance()
     {
@@ -13,9 +23,14 @@ public class Account
     }
 
     // If you give a valid transaction amount, I'll add this to your account.
-    public void Deposit(TransactionAmount amountToDeposit)
+    public virtual void Deposit(TransactionAmount amountToDeposit)
     {
-        _balance += amountToDeposit;
+        
+        // Write the Code You wish you had 
+        decimal bonus = _bonusCalculator.CalculateBonusForDeposit(_balance, amountToDeposit);
+      
+
+        _balance += amountToDeposit + bonus ; // failing test - you didn't interact correctly with the bonus calculator.
     }
 
     public void Withdraw(TransactionAmount amountToWithdraw)
@@ -37,28 +52,7 @@ public class Account
         return amountToWithdraw > _balance;
     }
 
-    public static Account CreateAccount(string firstName, string lastName, char mi)
-    {
-        // firstName can't be null, lastName has to be at least three letter, mi can't be empty, etc.?
-        var errors = new List<string>();
-        if (firstName == "Jeff")
-        {
-            errors.Add("Dumb First Name");
-        }
-        if (lastName == "")
-        {
-            errors.Add("Lastname is blank");
-        }
-        if (errors.HasSome)
-        {
-            var ex = new AccountCreationException
-            {
-                Errors = errors
-            };
-            throw ex;
-        }
-        return new Account();
-    }
+    
 
 
 }

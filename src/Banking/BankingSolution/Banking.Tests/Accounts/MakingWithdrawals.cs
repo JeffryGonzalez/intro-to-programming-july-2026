@@ -1,4 +1,6 @@
 ﻿
+using Banking.Tests.TestDoubles;
+
 namespace Banking.Tests.Accounts;
 
 public class MakingWithdrawals
@@ -7,7 +9,7 @@ public class MakingWithdrawals
     [Fact]
     public void WithdrawalsReduceBalance()
     {
-        var account = new Account();
+        var account = new Account(new DummyBonusCalculator());
         var openingBalance = account.GetBalance();
         var amountToWithdraw = 101.23M;
 
@@ -19,7 +21,7 @@ public class MakingWithdrawals
     [Fact]
     public void CanWithdrawFullBalance()
     {
-        var account = new Account();
+        var account = new Account(new DummyBonusCalculator());
         var fullBalance = account.GetBalance();
 
         account.Withdraw(fullBalance);

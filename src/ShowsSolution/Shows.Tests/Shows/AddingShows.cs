@@ -1,6 +1,8 @@
 ﻿
 using Alba;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Shows.Api.Shows;
 using Testcontainers.PostgreSql;
 
@@ -59,9 +61,13 @@ public class AddingShows : IAsyncLifetime
                 _pgContainer.GetConnectionString());
             config.ConfigureServices(sp =>
             {
-            // replace the service that calls the reminder service
             // with a fake version that blows up.
           
+            });
+            config.ConfigureTestServices(sp =>
+            {
+            // replace the service that calls the reminder service
+                //sp.AddScoped<IProvideShowsData, SqlServerDataProvider>();
             });
             // todo: change the config
         });

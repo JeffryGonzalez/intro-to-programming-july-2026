@@ -2,7 +2,7 @@
 
 public class CalculatorTests
 {
-    private readonly Calculator _calculator = new();
+    private readonly Calculator _calculator = new(Substitute.For<ILogStringCalculations>(), Substitute.For<IProvideMaintenencNotifications>());
 
     [Fact]
     public void EmptyStringReturnsZero()

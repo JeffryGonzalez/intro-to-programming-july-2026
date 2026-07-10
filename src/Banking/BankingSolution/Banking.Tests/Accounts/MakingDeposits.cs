@@ -1,5 +1,7 @@
 ﻿
 
+using Banking.Tests.TestDoubles;
+
 namespace Banking.Tests.Accounts;
 
 public class MakingDeposits
@@ -11,8 +13,9 @@ public class MakingDeposits
     public void IncreasesTheBalance(decimal amountToDeposit)
     {
         // Given
-        var account = new Account();
-        
+        var account = new Account(new DummyBonusCalculator());
+       
+       
         var openingBalance = account.GetBalance();
         // When
 
@@ -21,7 +24,7 @@ public class MakingDeposits
 
         // then
 
-        Assert.Equal(amountToDeposit + openingBalance, account.GetBalance());
+        Assert.Equal(amountToDeposit  + openingBalance, account.GetBalance());
 
     }
 
@@ -31,8 +34,8 @@ public class MakingDeposits
     [Fact(Skip ="Contemplate this")]
     public void DemoDeleteMe()
     {
-        var damiansAccount = new Account(); // instance is a object built from a class
-        var richardsAccount = new Account(); // instance 2
+        var damiansAccount = new Account(new DummyBonusCalculator()); // instance is a object built from a class
+        var richardsAccount = new Account(new DummyBonusCalculator()); // instance 2
 
 
         Assert.Equal(damiansAccount.GetBalance(), richardsAccount.GetBalance());

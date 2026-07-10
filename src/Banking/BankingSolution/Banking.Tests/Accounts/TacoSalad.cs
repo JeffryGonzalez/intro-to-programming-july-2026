@@ -5,6 +5,15 @@ namespace Banking.Tests.Accounts;
 public class TransactionAmountTests
 {
 
+    [Fact]
+    public void UsingTheAccountForRealzUnitIntegration()
+    {
+        var account1 = new Account(new StandardBonusCalculator());
+        var account2 = new Account(new TimeBoundBonusCalculator(TimeProvider.System));
+
+        // builder.Services.AddScoped<IProvideTimeBoundBonusCalculation,...>
+    }
+
     [Theory]
     [InlineData(0)]
     [InlineData(-0.01)]

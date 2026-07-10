@@ -24,7 +24,8 @@ builder.Services.AddMarten(options =>
 }).UseNpgsqlDataSource().UseLightweightSessions();
 
 // Configuring services. What are services? Some code that own some data and the process for that data.
-builder.Services.AddScoped<ShowsData>();
+builder.Services.AddScoped<IProvideShowsData, ShowsData>();
+//builder.Services.AddScoped<IProvideShowsData,SqlServerDataProvider>();
 
 var app = builder.Build();
 
