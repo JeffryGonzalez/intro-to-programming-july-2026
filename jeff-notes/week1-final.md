@@ -15,8 +15,16 @@ We started off talking about services. Sort of jumped into the deep end of the p
 A huge amount of work done at your company is based around HTTP-based services. 
 
 > **Question**: What is the advantage of using HTTP over other protocols, like gRPC, etc.?
+> HTTP is slow. It's constrained - request/response, stateless, etc.
+Very standard - has a lot built in, https (TLS).
+Very standard - proven, and ubiquitious - everything supports http.
+
+
 
 > **Question**: Why do we set a port for our local API to run on (e.g. 1337)?
+TCP (the protocol) can run many applications and each one needs a unique port.
+You might have several APIs running on your machine - each one needs a unique port.
+
 
 ### Testing
 
@@ -53,21 +61,52 @@ We spent a lot of time thinking about the structure and "style" of our code. Not
 
 > **Question**: What was the string calculator (TDD Kata 1) all about? 
 
+One step at a time! Avoiding overworking - doing more than is needed, beccause we have to prove
+first that we are thinking right about the problem and that this is the right solution.
+
+Incremental small steps.
 
 > **Question**: What was the string calculator (TDD Kata 2) all about? 
+
+Coupling. Interactions - verifying the code you are responsible for interacts with other code in the way
+you expect.
+
+Site Reliability / Chaos etc. 
+
+"When the logger throws an exception, do this other thing..."
 
 
 > **Question**: Why do we say "hold your breath until you get to green" when doing TDD? What's that all about?  
 
+Break your code into little things that are understandable and express intent.
+
 
 > **Question**: True or false: Tests prove our code runs correctly. 
 
+False. BE SMART ABOUT WHAT TESTS YOUR WRITE.
+
 > **Question**: True or false: The more tests the better. And why is that false. 
+
+False - bugs scale linearly with the number of lines of code.
 
 > **Question**: Why do we, as programmers, prefer small little things (classes, methods, services, etc.) over big things? 
 
+"Fits in your head" - "Cognitive Crutch" 
+
+Don't worry about reuse. Be selfish. 
+
 > **Question**: Why would you do an "extract method" refactoring?  
+
+Don't do it expecting reuse - do it to make it more understandable and to NAME THINGS THAT ARE LATENT IN THE CODE.
 
 > **Question**: True or false: as an application developer, you should always write your code expecting reuse by your team. Make sure your write "bomb proof" code that validates every input, because every one is dumb but you. 
 
+Old skool - AND if you are writing libraries/frameworks, etc. Not application development.
+
 > **Question**: What is an "Application Developer"? Are application developers that produce the most code the better application developers than those that produce very little?
+
+"Applying" - using technology in novel ways to provide business value or reduce liability.
+
+Not writing code. 
+
+
