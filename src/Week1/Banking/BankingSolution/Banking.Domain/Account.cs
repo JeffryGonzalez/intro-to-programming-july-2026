@@ -49,6 +49,7 @@ public class Account(IProvideBonusCalculationForAccounts _bonusCalculator)
 
     private bool WouldCauseOverdraft(decimal amountToWithdraw)
     {
+    
         return amountToWithdraw > _balance;
     }
 
