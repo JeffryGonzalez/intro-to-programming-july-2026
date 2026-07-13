@@ -1,0 +1,14 @@
+@if (toggled()) {
+  <p>It is On!</p>
+} @else {
+  <p>It is Off!</p>
+}
+<app-toggle-button (wasClicked)="toggleOn()" text="Toggle On" [toggled]="toggled() === false" />
+
+<div>
+  <app-toggle-button
+    (wasClicked)="toggleOff()"
+    [text]="offLabel()"
+    [toggled]="toggled() === true"
+  />
+</div>

@@ -9,6 +9,14 @@ if (true)
     DateOnly jeffsBirthday = new DateOnly(1986, 4, 20);
 }
 
+var p = new Point
+{
+    X = 12,
+    Y = 32
+};
+
+
+
 //var lotsOfNumbers = Enumerable.Range(1, 100);
 var lotsOfNumbers = Enumerable.Range(1, 50).Where(n => n % 2 == 0);
 
