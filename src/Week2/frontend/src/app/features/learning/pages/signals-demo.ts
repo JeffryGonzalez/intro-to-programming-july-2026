@@ -1,19 +1,24 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { FizzBuzz } from './fizz-buzz';
+import { CounterData } from '../counter-data';
 
 @Component({
   selector: 'app-learning-signals',
-  imports: [],
+
+  providers: [],
   template: `
     <div>
       <button (click)="decrement()" class="btn btn-circle btn-error">-</button>
       <span class="p-8"
-        ><span>{{ count() }}</span
+        ><span>{{ service.count() }}</span
         ><span class="pl-4"> {{ isEven() }}</span>
       </span>
       <button (click)="increment()" class="btn btn-circle btn-success">+</button>
     </div>
     <div>
-      <button [disabled]="count() === 0" (click)="reset()" class="btn btn-primary">Reset</button>
+      <button [disabled]="service.count() === 0" (click)="reset()" class="btn btn-primary">
+        Reset
+      </button>
     </div>
   `,
   styles: ``,
@@ -24,24 +29,25 @@ export class SignalsDemo {
 
   // don't do this - this is bad, but I wanna demo
 
-  count = signal(0);
+  service = inject(CounterData);
+
   isEven = computed(() => {
-    const current = this.count();
+    const current = this.service.count();
     if (current === 0) return false;
     return current % 2 === 0;
   });
   decrement() {
     // this.count.set(this.count() - 1);
-    this.count.update((current) => current - 1);
+    this.service.count.update((current) => current - 1);
     // check to see if any data changed, if it did, update the dom
   }
 
   increment() {
-    this.count.update((c) => c + 1);
+    this.service.count.update((c) => c + 1);
     // check to see if the data changed, if it did, update the dom
   }
 
   reset() {
-    this.count.set(0);
+    this.service.count.set(0);
   }
 }

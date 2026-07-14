@@ -24,6 +24,8 @@ builder.Services.AddMarten(options =>
 }).UseNpgsqlDataSource().UseLightweightSessions();
 
 // Configuring services. What are services? Some code that own some data and the process for that data.
+
+// Pretty much anything that has to do with a user, including users activity in a database, should MUST be "scoped"
 builder.Services.AddScoped<IProvideShowsData, ShowsData>();
 //builder.Services.AddScoped<IProvideShowsData,SqlServerDataProvider>();
 

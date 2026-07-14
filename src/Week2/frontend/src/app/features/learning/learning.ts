@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { ShowsData } from '../shows/shows-data';
 
 @Component({
   selector: 'app-learning',
@@ -17,4 +18,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   `,
   styles: ``,
 })
-export class Learning {}
+export class Learning {
+  svc = inject(ShowsData);
+}

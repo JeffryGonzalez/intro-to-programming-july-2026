@@ -1,0 +1,41 @@
+endpoint: /api/shows
+method: GET
+shape: collection
+description: Returns the shows displayed on the Shows List page.
+
+responseType:
+  name: ApiShowItem[]
+  path: src/app/features/shows/types.ts
+
+context:
+  sourceHints:
+    - src/app/features/shows/shows-data.ts
+    - src/app/features/shows/ui/list.ts
+  hints:
+    - 'The list template currently has no explicit loading, empty, or error UI blocks.'
+
+scenarios:
+  typical:
+    description: Tests the default browsing experience where show cards render and users can scan titles, descriptions, and providers.
+    active: true
+  empty:
+    description: Tests whether the page communicates that no shows are available instead of appearing broken or blank.
+  overloaded:
+    description: Tests layout stability and scroll behavior when far more cards render than typical usage.
+  malformed-data:
+    description: Tests resilience when one show record has missing fields so the UI does not crash while rendering cards.
+  unauthorized:
+    description: Tests how the page behaves when data loading is rejected due to authentication.
+    httpStatus: 401
+  server-error:
+    description: Tests that a backend failure state is handled with user-visible recovery feedback.
+    httpStatus: 500
+  slow:
+    description: Tests loading-state behavior while the shows request takes realistic time to complete.
+    delay: "3000"
+  slow-empty:
+    description: Tests that loading UI transitions into the empty-state UI after a delayed response completes.
+    delay: "3000"
+  never-resolves:
+    description: Tests timeout or stuck-loading behavior when the request never settles.
+    delay: infinite

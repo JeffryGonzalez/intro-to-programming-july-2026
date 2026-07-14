@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { List } from './ui/list';
 
 @Component({
   selector: 'app-shows',
-  imports: [],
-  template: ` <p>Shows Here</p> `,
+  imports: [List],
+  template: ` <app-shows-list /> `,
   styles: ``,
 })
 export class Shows {}
