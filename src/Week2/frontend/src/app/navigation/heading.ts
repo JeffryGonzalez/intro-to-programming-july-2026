@@ -17,6 +17,14 @@ export class Heading {
       text: 'Home',
     },
     {
+      path: 'learning',
+      text: 'Learning Stuff',
+    },
+    {
+      path: 'shows',
+      text: 'Shows',
+    },
+    {
       path: 'about',
       text: 'About Us',
     },

@@ -49,3 +49,25 @@ State (data) should be in Signals. We've done a bunch of this. Tomorrow I'll tel
 
 For sharing functionality beyond these limits of inputs and outputs you
 define a class or function that is responsible for some data, and all the behavior around that data. You know. a **service**, and the services are _injected_ in to components or other services (like `IDocumentSession` last week).
+
+## Differences
+
+- React "Just trying to be the V in MVC" - very simple. Functional. JS or TS.
+  - React has an AMAZING ecosystem. Lots of great libraries, etc.
+    - Tanstack stuff is _dreamy_ (router, query, etc. )
+- Vue - JS or TS.
+  Really is the sweet spot between function and easy.
+
+- Angular
+  - Negative - components are a bit verbose.
+  - Negative - not quite as big of a an open-source community (NGRX, NG-Neat, Angular Architects)
+  - Positives - MUCH less dependency hell between versions, the `ng update` is HAWTNESS
+  - Positive - It's google, and they do good "build" - you get REALLY small html, JS, etc. that performs well.
+  - Angular Router is pretty mid. It is the NEXT thing they are updating to signals.
+  - Forms - we have three ways to do forms, and two of them suck.
+    - Template forms. At the beginning of Angular 2, nobody uses this.
+    - Reactive forms - use RXJS, observables, really complicated, hard to extend and generalize.
+    - As of Angular 22 - Signal Forms - FANTASTIC - best of any framework. Perfect. Chef kiss. No Notes.
+
+- Svelte and SolidJS - these are _great_, and also have the benefit of not _just_ being for "SPAs" - you
+  can create nice little experiences that live inside server-side apps with these (easier than Angular, Vue, React).

@@ -12,6 +12,14 @@ export const routes: Routes = [
     component: About,
   },
   {
+    path: 'learning',
+    loadChildren: () => import('./features/learning/routes').then((r) => r.learningRoutes),
+  },
+  {
+    path: 'shows',
+    loadChildren: () => import('./features/shows/shows-routes').then((r) => r.showsRoutes),
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },
