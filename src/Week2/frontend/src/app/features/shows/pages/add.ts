@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { form, FormField, FormRoot, minLength, required } from '@angular/forms/signals';
 import { ProviderFlags, providers, ShowCreate, StreamingProviders } from '../types';
+import { ShowsData } from '../shows-data';
 
 @Component({
   selector: 'app-shows-add',
@@ -30,18 +31,22 @@ import { ProviderFlags, providers, ShowCreate, StreamingProviders } from '../typ
           <div class="flex flex-col w-full">
             <label class="label">
               <input
-                [formField]="theForm[providersMap[p].provider]"
+                [formField]="theForm.streamingProviders[service.providersMap[p].provider]"
                 type="checkbox"
                 class="checkbox"
               />
-              {{ providersMap[p].display }}
+              {{ service.providersMap[p].display }}
             </label>
           </div>
         }
 
         <div class="flex flex-col w-full">
           <label for="other">Other</label>
-          <input class="input" type="text" [formField]="theForm.otherStreamingService" />
+          <input
+            class="input"
+            type="text"
+            [formField]="theForm.streamingProviders.otherStreamingService"
+          />
         </div>
       </fieldset>
       <button [attr.aria-disabled]="theForm().invalid()" type="submit" class="btn btn-primary">
@@ -53,28 +58,19 @@ import { ProviderFlags, providers, ShowCreate, StreamingProviders } from '../typ
 })
 export class Add {
   protected readonly streamingProvidersList = providers;
-
-  protected readonly providersMap: Record<
-    StreamingProviders,
-    { provider: keyof ProviderFlags; display: string }
-  > = {
-    netflix: { provider: 'onNetflix', display: 'Netflix' },
-    prime: { provider: 'onPrime', display: 'Amazon Prime' },
-    hulu: { provider: 'onHulu', display: 'Hulu' },
-    paramount: { provider: 'onParamount', display: 'Paramount+' },
-    appletv: { provider: 'onAppletv', display: 'Apple TV+' },
-  };
+  service = inject(ShowsData);
 
   model = signal<ShowCreate>({
     title: '',
     description: '',
-    otherStreamingService: '',
-
-    onHulu: false,
-    onNetflix: false,
-    onPrime: false,
-    onParamount: false,
-    onAppletv: false,
+    streamingProviders: {
+      otherStreamingService: '',
+      onHulu: false,
+      onNetflix: false,
+      onPrime: false,
+      onParamount: false,
+      onAppletv: false,
+    },
   });
 
   theForm = form(
@@ -90,6 +86,7 @@ export class Add {
       submission: {
         action: async (value) => {
           console.log(this.model());
+          await this.service.addShow(this.model());
         },
         onInvalid: (f) => {
           console.log(f());

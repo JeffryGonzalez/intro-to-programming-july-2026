@@ -14,8 +14,10 @@ export type ProviderFlags = {
 };
 
 export type ShowCreate = Pick<ApiShowItem, 'title' | 'description'> & {
-  otherStreamingService: string;
-} & ProviderFlags;
+  streamingProviders: ProviderFlags & {
+    otherStreamingService: string;
+  };
+};
 
 // interface ShowCreate implements ProviderFlags, Pick<ApiShowItem, 'title' | 'description'> {
 //   otherStreamingService: string

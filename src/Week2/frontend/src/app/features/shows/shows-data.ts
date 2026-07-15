@@ -1,6 +1,6 @@
 import { HttpClient, httpResource } from '@angular/common/http';
 import { computed, DOCUMENT, inject, Injectable, Service, signal } from '@angular/core';
-import { ApiShowItem, StreamingProviders } from './types';
+import { ApiShowItem, ProviderFlags, ShowCreate, StreamingProviders } from './types';
 
 // @Service() // (old school was @Injectable(...)) You can provide this whenever. Create it when it first used,
 // and then pass this sucker around to everything that needs like a cheap bottle of wine around a campfire.
@@ -31,4 +31,26 @@ export class ShowsData {
   clearFilter() {
     this.#filterBy.set(undefined);
   }
+  async addShow(show: ShowCreate) {
+    const showToAdd: Omit<ApiShowItem, 'id'> = {
+      title: show.title,
+      description: show.description,
+      streamingServices: Object.entries(show.streamingProviders)
+        .filter(([key, value]) => key !== 'title' && key !== 'description' && value === true)
+        .map(
+          ([key]) => this.providersMap[key as StreamingProviders].provider as StreamingProviders,
+        ),
+    };
+    console.log('Adding show:', showToAdd);
+    //await this.#http.post('/api/shows', showToAdd);
+    this.showsResource.reload();
+  }
+
+  providersMap: Record<StreamingProviders, { provider: keyof ProviderFlags; display: string }> = {
+    netflix: { provider: 'onNetflix', display: 'Netflix' },
+    prime: { provider: 'onPrime', display: 'Amazon Prime' },
+    hulu: { provider: 'onHulu', display: 'Hulu' },
+    paramount: { provider: 'onParamount', display: 'Paramount+' },
+    appletv: { provider: 'onAppletv', display: 'Apple TV+' },
+  };
 }
