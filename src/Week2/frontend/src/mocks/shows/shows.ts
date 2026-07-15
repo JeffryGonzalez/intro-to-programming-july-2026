@@ -15,7 +15,7 @@ const typicalResponse: ApiShowItem[] = [
     id: 'show-2',
     title: 'the bear',
     description: 'A chef returns home to run a struggling sandwich shop.',
-    streamingServices: ['hulu', 'disney+'],
+    streamingServices: ['hulu', 'netflix'],
   },
 ];
 
