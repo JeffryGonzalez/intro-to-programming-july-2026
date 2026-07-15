@@ -14,6 +14,9 @@
     content: ' *';
     color: var(--color-error);
   }
+  pre {
+    @apply border-4 border-red-700;
+  }
 
   /* The Lee Cooper Effect */
 
@@ -22,15 +25,12 @@
     overflow: hidden;
   }
 
-  pre {
-    @apply border-4 border-red-700;
-  }
   button[aria-disabled='true']::after {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    pointer-events: none;
+
     background-image:
       repeating-linear-gradient(
         45deg,

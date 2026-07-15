@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField, FormRoot, minLength, required } from '@angular/forms/signals';
-import { ShowCreate } from '../types';
+import { ProviderFlags, providers, ShowCreate, StreamingProviders } from '../types';
 
 @Component({
   selector: 'app-shows-add',
@@ -25,36 +25,42 @@ import { ShowCreate } from '../types';
       </div>
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Streaming Services</legend>
-        <label class="label">
-          <input type="checkbox" class="checkbox" [formField]="theForm.onNetflix" />
-          Netflix
-        </label>
-        <label class="label">
-          <input type="checkbox" class="checkbox" [formField]="theForm.onPrime" />
-          Amazon Prime
-        </label>
-        <label class="label">
-          <input type="checkbox" class="checkbox" [formField]="theForm.onHulu" />
-          Hulu
-        </label>
+
+        @for (p of streamingProvidersList; track p) {
+          <div class="flex flex-col w-full">
+            <label class="label">
+              <input
+                [formField]="theForm[providersMap[p].provider]"
+                type="checkbox"
+                class="checkbox"
+              />
+              {{ providersMap[p].display }}
+            </label>
+          </div>
+        }
 
         <div class="flex flex-col w-full">
           <label for="other">Other</label>
           <input class="input" type="text" [formField]="theForm.otherStreamingService" />
         </div>
       </fieldset>
-      <button
-        [attr.aria-disabled]="theForm().invalid()"
-        type="submit"
-        class="btn btn-lg btn-primary"
-      >
-        Add Show
-      </button>
+      <button [attr.aria-disabled]="theForm().invalid()" type="submit" class="btn">Add Show</button>
     </form>
   `,
   styles: ``,
 })
 export class Add {
+  protected readonly streamingProvidersList = providers;
+  protected readonly providersMap: Record<
+    StreamingProviders,
+    { provider: keyof ProviderFlags; display: string }
+  > = {
+    netflix: { provider: 'onNetflix', display: 'Netflix' },
+    prime: { provider: 'onPrime', display: 'Amazon Prime' },
+    hulu: { provider: 'onHulu', display: 'Hulu' },
+    paramount: { provider: 'onParamount', display: 'Paramount+' },
+    appletv: { provider: 'onAppletv', display: 'Apple TV+' },
+  };
   model = signal<ShowCreate>({
     title: '',
     description: '',
@@ -63,6 +69,8 @@ export class Add {
     onHulu: false,
     onNetflix: false,
     onPrime: false,
+    onParamount: false,
+    onAppletv: false,
   });
 
   theForm = form(

@@ -1,4 +1,4 @@
-export const providers = ['netflix', 'prime', 'hulu'] as const;
+export const providers = ['netflix', 'prime', 'hulu', 'paramount', 'appletv'] as const;
 export type StreamingProviders = (typeof providers)[number];
 
 export type ApiShowItem = {
@@ -9,7 +9,7 @@ export type ApiShowItem = {
 };
 
 // The Type is a program language.
-type ProviderFlags = {
+export type ProviderFlags = {
   [P in StreamingProviders as `on${Capitalize<P>}`]: boolean;
 };
 
