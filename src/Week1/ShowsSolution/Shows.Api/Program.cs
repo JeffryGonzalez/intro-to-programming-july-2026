@@ -12,21 +12,22 @@ var builder = WebApplication.CreateBuilder(args);
 var connectString = builder.Configuration.GetConnectionString("shows") ?? throw new Exception("Need a Connection String!");
 
 builder.AddServiceDefaults();
+
 builder.Services.AddValidation();
 
 builder.AddNpgsqlDataSource("shows"); // sets up the connection to the database called "shows", with OTEL.
 
 
 // we will now have a service we can inject (like ShowsData) called IDocumentSession - use that to access the database.
-builder.Services.AddMarten(options =>
-{
-    // stuff coming here later.
-}).UseNpgsqlDataSource().UseLightweightSessions();
+//builder.Services.AddMarten(options =>
+//{
+//    // stuff coming here later.
+//}).UseNpgsqlDataSource().UseLightweightSessions();
 
 // Configuring services. What are services? Some code that own some data and the process for that data.
 
 // Pretty much anything that has to do with a user, including users activity in a database, should MUST be "scoped"
-builder.Services.AddScoped<IProvideShowsData, ShowsData>();
+builder.Services.AddScoped<IProvideShowsData, ShowsData>(); // Saying we will provide this service to anything that injects it.
 //builder.Services.AddScoped<IProvideShowsData,SqlServerDataProvider>();
 
 var app = builder.Build();

@@ -6,10 +6,11 @@ import {
 } from '@angular/router';
 
 import { routes } from './app.routes';
-import { ShowsData } from './features/shows/shows-data';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // anyone in the entire application can inject this. no @Service needed.
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withExperimentalAutoCleanupInjectors()),
   ],

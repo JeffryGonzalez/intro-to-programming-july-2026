@@ -1,13 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { ShowsData } from '../features/shows/shows-data';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-about',
   imports: [],
-  providers: [ShowsData],
+  providers: [],
   template: ` <p>about works!</p> `,
   styles: ``,
 })
 export class About {
-  svc = inject(ShowsData);
+  // svc = inject(ShowsData);
 }

@@ -3,6 +3,7 @@ import { Learning } from './learning';
 import { Home } from './pages/home';
 import { SignalsDemo } from './pages/signals-demo';
 import { CounterData } from './counter-data';
+import { ShowsData } from '../shows/shows-data';
 export const learningRoutes: Routes = [
   {
     path: '',

@@ -1,12 +1,11 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ShowsData } from '../shows-data';
-import { Filter } from './filter';
 
 @Component({
   selector: 'app-shows-list',
-  imports: [TitleCasePipe, Filter],
-  providers: [],
+  imports: [TitleCasePipe],
+  providers: [ShowsData],
   template: `
     @if (dataService.showsResource.error()) {
       <div class="alert alert-error">
@@ -17,10 +16,9 @@ import { Filter } from './filter';
     @if (dataService.showsResource.isLoading()) {
       <div class="alert alert-info">Chill out - loading your data.</div>
     } @else {
-      <app-shows-filter />
-      <div class="grid grid-cols-4 gap-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
         @for (show of dataService.showsList(); track show.id) {
-          <div class="card w-96 bg-base-100 card-lg shadow-sm">
+          <div class="card w-fit bg-base-100 card-lg shadow-sm">
             <div class="card-body border-2 border-amber-50">
               <h2 class="card-title">{{ show.title }}</h2>
               <p>
@@ -47,5 +45,6 @@ import { Filter } from './filter';
   styles: ``,
 })
 export class List {
+  // dataService = new ShowsData();
   dataService = inject(ShowsData);
 }
