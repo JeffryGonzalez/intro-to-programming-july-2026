@@ -44,13 +44,16 @@ import { ProviderFlags, providers, ShowCreate, StreamingProviders } from '../typ
           <input class="input" type="text" [formField]="theForm.otherStreamingService" />
         </div>
       </fieldset>
-      <button [attr.aria-disabled]="theForm().invalid()" type="submit" class="btn">Add Show</button>
+      <button [attr.aria-disabled]="theForm().invalid()" type="submit" class="btn btn-primary">
+        Add Show
+      </button>
     </form>
   `,
   styles: ``,
 })
 export class Add {
   protected readonly streamingProvidersList = providers;
+
   protected readonly providersMap: Record<
     StreamingProviders,
     { provider: keyof ProviderFlags; display: string }
@@ -61,6 +64,7 @@ export class Add {
     paramount: { provider: 'onParamount', display: 'Paramount+' },
     appletv: { provider: 'onAppletv', display: 'Apple TV+' },
   };
+
   model = signal<ShowCreate>({
     title: '',
     description: '',
