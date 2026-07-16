@@ -3,8 +3,6 @@ import { computed, inject, signal } from '@angular/core';
 import { ApiShowItem, ProviderFlags, ShowCreate, StreamingProviders } from './types';
 import { lastValueFrom } from 'rxjs';
 
-// @Service() // (old school was @Injectable(...)) You can provide this whenever. Create it when it first used,
-// and then pass this sucker around to everything that needs like a cheap bottle of wine around a campfire.
 export class ShowsData {
   showsResource = httpResource<ApiShowItem[]>(() => '/api/shows');
   #filterBy = signal<StreamingProviders | undefined>(undefined);
@@ -46,12 +44,14 @@ export class ShowsData {
         .filter(([key, value]) => key !== 'otherStreamingService' && value === true)
         .map(([key]) => providerToKeyMap[key as keyof ProviderFlags]),
     };
-    console.log('Adding show:', showToAdd);
-    await lastValueFrom(this.#http.post('/api/shows', showToAdd));
+    await lastValueFrom(this.#http.post<ApiShowItem>('/api/shows', showToAdd));
     this.showsResource.reload();
   }
 
-  providersMap: Record<StreamingProviders, { provider: keyof ProviderFlags; display: string }> = {
+  readonly providersMap: Record<
+    StreamingProviders,
+    { provider: keyof ProviderFlags; display: string }
+  > = {
     netflix: { provider: 'onNetflix', display: 'Netflix' },
     prime: { provider: 'onPrime', display: 'Amazon Prime' },
     hulu: { provider: 'onHulu', display: 'Hulu' },

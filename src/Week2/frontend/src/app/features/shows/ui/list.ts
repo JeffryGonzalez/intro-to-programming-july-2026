@@ -5,7 +5,7 @@ import { ShowsData } from '../shows-data';
 @Component({
   selector: 'app-shows-list',
   imports: [TitleCasePipe],
-  providers: [ShowsData],
+  providers: [],
   template: `
     @if (dataService.showsResource.error()) {
       <div class="alert alert-error">

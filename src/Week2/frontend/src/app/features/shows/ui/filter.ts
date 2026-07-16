@@ -6,14 +6,17 @@ import { ShowsData } from '../shows-data';
   selector: 'app-shows-filter',
   imports: [],
   template: `
-    <div class="join">
+    <div class="join pb-4">
       @for (p of providers; track p) {
+        @let pCount =
+          service.showsList().filter((s) => s.streamingServices.some((s) => s === p)).length;
         <button
-          [disabled]="service.getFilterBy() === p"
+          [aria-disabled]="pCount === 0"
           (click)="service.setFilterBy(p)"
           class="btn join-item"
         >
-          {{ p }}
+          {{ service.providersMap[p].display }}
+          <span class="opacity-70 text-xs font-extralight">({{ pCount }})</span>
         </button>
       }
       <button
