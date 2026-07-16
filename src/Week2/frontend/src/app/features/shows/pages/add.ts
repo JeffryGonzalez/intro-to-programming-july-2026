@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField, FormRoot, minLength, required } from '@angular/forms/signals';
-import { ProviderFlags, providers, ShowCreate, StreamingProviders } from '../types';
 import { ShowsData } from '../shows-data';
+import { providers, ShowCreate } from '../types';
 
 @Component({
   selector: 'app-shows-add',
