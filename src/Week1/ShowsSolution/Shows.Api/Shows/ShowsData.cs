@@ -9,6 +9,8 @@ namespace Shows.Api.Shows;
 
 public class ShowsData(IDocumentSession session) : IProvideShowsData
 {
+
+    // session = inject(IDocumentSession);
     // TLDR on Async/Await: If you are going across a network, filesystem, other apis, databases, etc.
     // You must use async/await
     public async Task<IReadOnlyList<ShowSummary>> GetAllShowsAsync(CancellationToken token = default)

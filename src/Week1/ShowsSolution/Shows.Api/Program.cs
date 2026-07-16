@@ -19,10 +19,10 @@ builder.AddNpgsqlDataSource("shows"); // sets up the connection to the database 
 
 
 // we will now have a service we can inject (like ShowsData) called IDocumentSession - use that to access the database.
-//builder.Services.AddMarten(options =>
-//{
-//    // stuff coming here later.
-//}).UseNpgsqlDataSource().UseLightweightSessions();
+builder.Services.AddMarten(options => // Configures the IDocumentSession so it can be injected anywhere in this application.
+{
+    // stuff coming here later.
+}).UseNpgsqlDataSource().UseLightweightSessions();
 
 // Configuring services. What are services? Some code that own some data and the process for that data.
 

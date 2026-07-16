@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { form, FormField, FormRoot, minLength, required } from '@angular/forms/signals';
 import { ShowsData } from '../shows-data';
 import { providers, ShowCreate } from '../types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shows-add',
@@ -21,8 +22,10 @@ import { providers, ShowCreate } from '../types';
         </div>
       </div>
       <div class="flex flex-col w-full">
-        <label for="description">Description</label>
-        <textarea class="input" type="text" [formField]="theForm.description"></textarea>
+        <label for="description"
+          >Description
+          <textarea class="input" type="text" [formField]="theForm.description"></textarea>
+        </label>
       </div>
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Streaming Services</legend>
@@ -57,13 +60,14 @@ import { providers, ShowCreate } from '../types';
   styles: ``,
 })
 export class Add {
+  protected readonly router = inject(Router);
   protected readonly streamingProvidersList = providers;
   service = inject(ShowsData);
-
-  model = signal<ShowCreate>({
+  private readonly defaultForm: ShowCreate = {
     title: '',
     description: '',
     streamingProviders: {
+      onCrunchyroll: false,
       otherStreamingService: '',
       onHulu: false,
       onNetflix: false,
@@ -71,7 +75,8 @@ export class Add {
       onParamount: false,
       onAppletv: false,
     },
-  });
+  };
+  model = signal<ShowCreate>(this.defaultForm);
 
   theForm = form(
     this.model,
@@ -87,6 +92,9 @@ export class Add {
         action: async (value) => {
           console.log(this.model());
           await this.service.addShow(this.model());
+          this.theForm().reset();
+          this.model.set(this.defaultForm);
+          this.router.navigateByUrl('/shows');
         },
         onInvalid: (f) => {
           console.log(f());

@@ -1,4 +1,11 @@
-export const providers = ['netflix', 'prime', 'hulu', 'paramount', 'appletv'] as const;
+export const providers = [
+  'netflix',
+  'prime',
+  'hulu',
+  'paramount',
+  'appletv',
+  'crunchyroll',
+] as const;
 export type StreamingProviders = (typeof providers)[number];
 
 export type ApiShowItem = {

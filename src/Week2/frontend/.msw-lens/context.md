@@ -1,5 +1,5 @@
 # msw-lens — project context
-generated: 2026-07-15T14:42:30.831Z
+generated: 2026-07-16T20:17:31.536Z
 
 > Drop this file into any LLM conversation for instant context about what
 > is mocked in this project, what scenarios exist, and what is currently active.
@@ -8,7 +8,7 @@ generated: 2026-07-15T14:42:30.831Z
 
 | endpoint | method | active scenario |
 |----------|--------|-----------------|
-| `/api/shows` | GET | `typical` |
+| `/api/shows` | GET | `bypass` |
 
 ## Scenario details
 
@@ -16,7 +16,9 @@ generated: 2026-07-15T14:42:30.831Z
 manifest: `src\mocks\shows\shows.yaml`
 > Returns the shows displayed on the Shows List page.
 
-- **typical** ✓ **(active)** — Tests the default browsing experience where show cards render and users can scan titles, descriptions, and providers.
+**Currently bypassed** — requests pass through to the real API; no scenario is active.
+
+- **typical** — Tests the default browsing experience where show cards render and users can scan titles, descriptions, and providers.
 - **empty** — Tests whether the page communicates that no shows are available instead of appearing broken or blank.
 - **overloaded** — Tests layout stability and scroll behavior when far more cards render than typical usage.
 - **malformed-data** — Tests resilience when one show record has missing fields so the UI does not crash while rendering cards.

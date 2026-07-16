@@ -36,6 +36,7 @@ export class ShowsData {
       onHulu: 'hulu',
       onParamount: 'paramount',
       onAppletv: 'appletv',
+      onCrunchyroll: 'crunchyroll',
     };
     const showToAdd: Omit<ApiShowItem, 'id'> = {
       title: show.title,
@@ -44,6 +45,7 @@ export class ShowsData {
         .filter(([key, value]) => key !== 'otherStreamingService' && value === true)
         .map(([key]) => providerToKeyMap[key as keyof ProviderFlags]),
     };
+    console.log(showToAdd);
     await lastValueFrom(this.#http.post<ApiShowItem>('/api/shows', showToAdd));
     this.showsResource.reload();
   }
@@ -52,6 +54,7 @@ export class ShowsData {
     StreamingProviders,
     { provider: keyof ProviderFlags; display: string }
   > = {
+    crunchyroll: { provider: 'onCrunchyroll', display: 'Crunchyroll Anime' },
     netflix: { provider: 'onNetflix', display: 'Netflix' },
     prime: { provider: 'onPrime', display: 'Amazon Prime' },
     hulu: { provider: 'onHulu', display: 'Hulu' },
