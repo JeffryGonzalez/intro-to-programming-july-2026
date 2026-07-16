@@ -6,26 +6,25 @@ import { ShowsData } from '../shows-data';
   selector: 'app-shows-filter',
   imports: [],
   template: `
-    <div class="join pb-4">
+    <div class="filter pb-4">
+      <input
+        (click)="service.clearFilter()"
+        class="btn filter-reset"
+        type="radio"
+        name="filter"
+        aria-label="All"
+      />
       @for (p of providers; track p) {
         @let pCount =
           service.showsList().filter((s) => s.streamingServices.some((s) => s === p)).length;
-        <button
-          [aria-disabled]="pCount === 0"
+        <input
+          type="radio"
+          name="filter"
           (click)="service.setFilterBy(p)"
-          class="btn join-item"
-        >
-          {{ service.providersMap[p].display }}
-          <span class="opacity-70 text-xs font-extralight">({{ pCount }})</span>
-        </button>
+          class="btn "
+          aria-label="{{ service.providersMap[p].display + ' (' + pCount + ')' }}"
+        />
       }
-      <button
-        [disabled]="service.getFilterBy() === undefined"
-        (click)="service.clearFilter()"
-        class="btn join-item"
-      >
-        Clear
-      </button>
     </div>
   `,
   styles: ``,
