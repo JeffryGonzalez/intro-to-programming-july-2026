@@ -1,0 +1,34 @@
+parameters: {}
+secrets:
+  pg:
+    pg_password: ""
+  shows_api:
+    ConnectionStrings__shows: ""
+    pg_password: ""
+    SHOWS_URI: ""
+config:
+  pg:
+    POSTGRES_HOST_AUTH_METHOD: "scram-sha-256"
+    POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+    POSTGRES_USER: "postgres"
+  shows_api:
+    SHOWS_HOST: "pg-service"
+    SHOWS_PORT: "5432"
+    SHOWS_USERNAME: "postgres"
+    SHOWS_JDBCCONNECTIONSTRING: "jdbc:postgresql://pg-service:5432/shows"
+    SHOWS_DATABASENAME: "shows"
+  gateway:
+    ASPNETCORE_ENVIRONMENT: "Production"
+    FRONTEND_HTTP: "http://frontend-service:80"
+    REVERSEPROXY__ROUTES__route0__MATCH__PATH: "/{**catchall}"
+    REVERSEPROXY__ROUTES__route0__CLUSTERID: "cluster_frontend"
+    REVERSEPROXY__ROUTES__route1__MATCH__PATH: "/api/{**catchall}"
+    REVERSEPROXY__ROUTES__route1__CLUSTERID: "cluster_shows-api"
+    REVERSEPROXY__CLUSTERS__cluster_frontend__DESTINATIONS__destination1__ADDRESS: "http://frontend"
+    REVERSEPROXY__CLUSTERS__cluster_shows_api__DESTINATIONS__destination1__ADDRESS: "http://shows-api"
+    services__frontend__http__0: "http://frontend-service:80"
+    SHOWS_API_HTTP: "http://shows-api-service:8080"
+    services__shows_api__http__0: "http://shows-api-service:8080"
+    OTEL_EXPORTER_OTLP_ENDPOINT: "http://k8s-dashboard-service:18889"
+    OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+    OTEL_SERVICE_NAME: "gateway"
