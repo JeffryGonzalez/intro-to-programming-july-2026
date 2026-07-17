@@ -3,6 +3,7 @@ using Alba;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using NSubstitute;
 using Shows.Api.Shows;
 using Testcontainers.PostgreSql;
 
@@ -15,8 +16,12 @@ public class AddingShows : IAsyncLifetime
     // added is in that list.
     private IAlbaHost host = null!;
     private PostgreSqlContainer _pgContainer = null!;
-    
 
+
+    // with this, this is no longer a "System Test" - this is a system integration test.
+    // Those provide less confidence than a system test.
+    // by the way, this is about the best you can do if you are using shared databases.
+    private INotifyInventoryControl fakeNotification = Substitute.For<INotifyInventoryControl>();
     [Fact]
     public async Task CanAddAShowToTheInventory()
     {
@@ -48,6 +53,9 @@ public class AddingShows : IAsyncLifetime
         var hasTwinPeaks = dataFromGet.Any(s => s.Title == "Twin Peaks, the Return");
 
         Assert.True(hasTwinPeaks);
+
+
+        await fakeNotification.Received().NotifyInventoryControlOfNewShow("Twin Peaks, the Return");
     }
 
     public async Task InitializeAsync()
@@ -66,7 +74,9 @@ public class AddingShows : IAsyncLifetime
             });
             config.ConfigureTestServices(sp =>
             {
-            // replace the service that calls the reminder service
+               
+                // replace the service that calls the reminder service
+                sp.AddScoped<INotifyInventoryControl>(_ => fakeNotification);
                 //sp.AddScoped<IProvideShowsData, SqlServerDataProvider>();
             });
             // todo: change the config

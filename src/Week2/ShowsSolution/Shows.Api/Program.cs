@@ -46,5 +46,5 @@ app.UseAuthorization();
 // reflection to find all the controller classes, read their attributes,
 // and create the route table (lookup) that way.
 app.MapControllers(); 
-
+app.MapGet("/status", (TimeProvider p) => $"Looks good at " + p.GetUtcNow());
 app.Run();

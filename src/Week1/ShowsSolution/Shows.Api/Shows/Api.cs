@@ -26,11 +26,12 @@ public static class Api
                
             });
 
-            routes.MapPost("/shows", async (ShowCreateRequest request, IProvideShowsData service) =>
+            routes.MapPost("/shows", async (ShowCreateRequest request, IProvideShowsData service, INotifyInventoryControl notifier) =>
             {
 
                 ShowSummary response = await service.AddShowAsync(request); // WTCYWYH (Write the code you wish you had)
-                
+         
+                await notifier.NotifyInventoryControlOfNewShow(request.Title);
                 return Results.Created($"/shows/{response.Id}", response);
             });
             return routes;

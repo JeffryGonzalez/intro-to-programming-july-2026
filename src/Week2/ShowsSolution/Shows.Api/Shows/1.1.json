@@ -1,0 +1,62 @@
+{
+  "Id": "sha256:41384d41bca8f12659eae78426babf33a821db87cf1bea8b2f187cfd5c6b7222",
+  "RepoTags": ["jeffrygonzalez/shows-api:v1.1"],
+  "RepoDigests": [
+    "jeffrygonzalez/shows-api@sha256:41384d41bca8f12659eae78426babf33a821db87cf1bea8b2f187cfd5c6b7222"
+  ],
+  "Comment": "buildkit.dockerfile.v0",
+  "Created": "2026-07-17T16:33:12.809323055Z",
+  "Config": {
+    "User": "1654",
+    "ExposedPorts": {
+      "8080/tcp": {},
+      "8081/tcp": {}
+    },
+    "Env": [
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "APP_UID=1654",
+      "ASPNETCORE_HTTP_PORTS=8080",
+      "DOTNET_RUNNING_IN_CONTAINER=true",
+      "DOTNET_VERSION=10.0.10",
+      "ASPNET_VERSION=10.0.10"
+    ],
+    "Entrypoint": ["dotnet", "Shows.Api.dll"],
+    "WorkingDir": "/app",
+    "Labels": {
+      "org.opencontainers.image.version": "24.04"
+    }
+  },
+  "Architecture": "amd64",
+  "Os": "linux",
+  "Size": 100734827,
+  "RootFS": {
+    "Type": "layers",
+    "Layers": [
+      "sha256:f103cd120fdd6cbc7f3d0e1d5bfb3e16290c32ead7b822d15c34460ecdf64b29",
+      "sha256:09ae160c277c7944cf257c05520737d0710e0651efa91431d8d5018d7b606012",
+      "sha256:f6d8f613b90b74448c613ce254d58b7cd4ab6d2ec1c4417e5602f26788bdab35",
+      "sha256:d2de9bf7f4277ced34158ee251deaf22fa5727921d0c01f93e96de5784ea54a0",
+      "sha256:8623ad3a189fe98bea1aa09519f5a6cc815981af22beecfd327cf219df44621f",
+      "sha256:dfa09c27dc23be6cb6a09672802da93df2ae42efc90045f8053651185fc67645",
+      "sha256:85110183ddaea87bf175f4cea4544298b4838438d38c4ffae64d894a43cec18c",
+      "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+      "sha256:dd4912fec8e349f399d49cbc459340c3d7010290e4d17f8840606b7ac81fbd2e"
+    ]
+  },
+  "Metadata": {
+    "LastTagTime": "2026-07-17T16:33:14.084755373Z"
+  },
+  "Descriptor": {
+    "mediaType": "application/vnd.oci.image.index.v1+json",
+    "digest": "sha256:41384d41bca8f12659eae78426babf33a821db87cf1bea8b2f187cfd5c6b7222",
+    "size": 856
+  },
+  "Identity": {
+    "Build": [
+      {
+        "Ref": "rx2jgj1eaura3w2vaoh9os8ym",
+        "CreatedAt": "2026-07-17T16:33:14.291564746Z"
+      }
+    ]
+  }
+}

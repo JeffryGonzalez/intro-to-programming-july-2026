@@ -1,0 +1,12 @@
+node_modules
+dist
+.angular
+.git
+.gitignore
+.vscode
+.msw-lens
+notes
+*.md
+Dockerfile
+.dockerignore
+npm-debug.log

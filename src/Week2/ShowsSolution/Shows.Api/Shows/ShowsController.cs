@@ -24,7 +24,7 @@ public class ShowsController(IDocumentSession session) : ControllerBase
 
 
 
-        if (title != "all")
+        if (title != "all" || title == "beer")
         {
           part1= (Marten.Linq.IMartenQueryable<ShowEntity>)part1.Where(s => s.Title == title); 
             // if there is a query string argument for title that isn't "all", add a "where clause" to the query

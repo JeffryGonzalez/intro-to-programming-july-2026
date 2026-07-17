@@ -17,7 +17,17 @@ builder.Services.AddValidation();
 
 builder.AddNpgsqlDataSource("shows"); // sets up the connection to the database called "shows", with OTEL.
 
+builder.Services.AddHttpClient<InventoryNotification>(client =>
+{
+    var addy = builder.Configuration.GetValue<string>("notificationApi") ?? throw new Exception("need the url");
+    client.BaseAddress = new Uri(addy);
+});
 
+builder.Services.AddScoped<INotifyInventoryControl>(sp =>
+{
+    // don't create a new instance, use the "service provider" to return the one configured above.
+    return sp.GetRequiredService<InventoryNotification>();
+});
 // we will now have a service we can inject (like ShowsData) called IDocumentSession - use that to access the database.
 builder.Services.AddMarten(options => // Configures the IDocumentSession so it can be injected anywhere in this application.
 {
