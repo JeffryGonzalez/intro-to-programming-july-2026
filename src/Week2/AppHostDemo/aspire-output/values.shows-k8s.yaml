@@ -1,0 +1,7 @@
+secrets:
+  pg_server:
+    pg_server_password: x.3{6RrNNafB*-{kpdgYAT
+  api:
+    pg_server_password: x.3{6RrNNafB*-{kpdgYAT
+    ConnectionStrings__shows: Host=pg-server-service;Port=5432;Username=postgres;Password=x.3{6RrNNafB*-{kpdgYAT;Database=shows
+    SHOWS_URI: postgresql://postgres:x.3{6RrNNafB*-{kpdgYAT@pg-server-service:5432/shows

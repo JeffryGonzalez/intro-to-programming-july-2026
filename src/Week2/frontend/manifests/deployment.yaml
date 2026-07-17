@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shows-frontend
+  namespace: demo1
+spec:
+  selector:
+    matchLabels:
+      app: shows-frontend
+  template:
+    metadata:
+      labels:
+        app: shows-frontend
+    spec:
+      containers:
+        - name: shows-frontend
+          image: jeffrygonzalez/shows-frontend:v1
+          resources:
+            limits:
+              memory: '256Mi'
+              cpu: '500m'
+            requests:
+              memory: '130Mi'
+              cpu: '250m'
+          ports:
+            - containerPort: 80

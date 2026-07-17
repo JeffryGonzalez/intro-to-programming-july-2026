@@ -1,0 +1,24 @@
+{
+  "appHost": {
+    "path": "apphost.mts",
+    "language": "typescript/nodejs"
+  },
+  "sdk": {
+    "version": "13.4.6"
+  },
+  "channel": "stable",
+  "profiles": {
+    "https": {
+      "applicationUrl": "https://localhost:17188;http://localhost:15034",
+      "environmentVariables": {
+        "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:21114",
+        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:22166"
+      }
+    }
+  },
+  "packages": {
+    "Aspire.Hosting.PostgreSQL": "13.4.6",
+    "Aspire.Hosting.Yarp": "13.4.6",
+    "Aspire.Hosting.Kubernetes": "13.4.6-preview.1.26319.6"
+  }
+}
